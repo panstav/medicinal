@@ -1,0 +1,50 @@
+@mixin clear-fix
+	&:after
+		content: ''
+		display: table
+		clear: both
+
+$legacy:    320px
+$mobile:    450px
+$tablet:    650px
+$desktop:   800px
+$tv:        1200px
+$plasma:    1600px
+
+$main:          #61C44F
+$accent:        #001249
+$background:    #FCFCF2
+$ui:            #CBCBCB
+
+body
+	background-color: $background
+	margin: 0
+	direction: rtl
+
+ul, ol
+	padding-right: 1em
+
+input, input:focus,
+button, button:focus,
+textarea, textarea:focus
+	outline: 0
+	border: 1px solid $ui
+	padding: .5em 1em
+	font-size: 1.1em
+
+input, textarea
+	box-sizing: border-box
+
+input[type="email"]
+	direction: ltr
+
+p.flat
+	margin: 0
+
+.A4
+	max-width: 40rem
+	margin: auto
+	padding: 1em 2em
+
+	@media (min-width: $mobile)
+		padding: 1.5em 3em

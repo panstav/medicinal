@@ -1,0 +1,75 @@
+.hero
+
+	position: relative
+	height: 20em
+	color: $main
+	text-align: center
+
+	@media (min-width: $tablet)
+		height: 80vh
+
+	.logo
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+
+		max-width: 15em
+		max-height: 15em
+		margin: auto
+		padding-top: 2em
+
+	img
+		border-radius: 100%
+	
+.info
+
+	background-color: $main
+	color: white
+
+	h2:not(:first-of-type)
+		margin: 2em 0 1em
+
+	li
+		margin: .5em 0
+
+.newsletter
+	@include clear-fix
+
+	margin: 2em 0 1em
+	text-align: center
+
+	input
+		box-sizing: border-box
+		width: 100%
+		text-align: center
+
+	button
+		float: left
+		margin-top: 1em
+		
+	@media (min-width: $tablet)
+
+		input, button
+			margin: .2em
+
+		input
+			width: 20em
+
+		button
+			float: none
+
+.contact
+	@include clear-fix
+	padding-bottom: 2em
+
+	textarea
+		resize: vertical
+		width: 100%
+		min-height: 15em
+		margin-top: 2em
+
+	button
+		float: left
+		margin-top: 1em
