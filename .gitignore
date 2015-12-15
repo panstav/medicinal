@@ -1,6 +1,8 @@
 /.idea
 /node_modules
 /npm-debug.log
+
 /.sass-cache
+/webpack-stats.json
 
 /env.json

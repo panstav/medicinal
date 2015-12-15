@@ -1,7 +1,7 @@
 'use strict';
 
-// Main Dish
 var express = require('express');
+var bodyParser = require('body-parser');
 
 // Start a new server, set it up and return it.
 module.exports.init = () => {
@@ -14,6 +14,14 @@ module.exports.init = () => {
 
 	// Serve static files
 	server.use(express.static('public'));
+
+	// set body json at req.body
+	server.use(bodyParser.json());
+	server.use(bodyParser.urlencoded({ extended: true }));
+
+	// api
+	server.use('/api/add-to-newsletter', require('./add-to-newsletter'));
+	server.use('/api/send-contact-form', require('./send-contact-form'));
 
 	// set 404 fallback
 	server.use(fourOfour);
