@@ -1,5 +1,6 @@
 var http = require('nanoajax');
 
+var notify = require('./notify');
 var isValidEmail = require('../is-valid-email.js');
 
 onReady(() => {
@@ -16,6 +17,8 @@ function setNewsletterAction(){
 
 		var email = document.querySelector('.newsletter input').value;
 
+		if (!email) return;
+
 		if (!isValidEmail(email)) return badEmail();
 
 		var httpOptions = {
@@ -29,19 +32,24 @@ function setNewsletterAction(){
 			switch (code){
 
 			case 500:
-				return alert('System error');
+				return notify.serverError();
 
 			case 400:
-				return alert('Bad request');
+				return badEmail();
 
 			case 200:
-				return alert('Sababa');
+				return notify('כתובת המייל נרשמה בהצלחה ברשימת התפוצה.');
 
 			case 208:
-				return alert('Already registered');
+				return notify.error('כתובת המייל כבר רשומה במערכת.');
 			}
 
 		});
+		
+		function badEmail(){
+			notify.error('כתובת המייל שהקשת לא תקפה.');
+		}
+		
 	});
 
 }
@@ -51,6 +59,8 @@ function setContactAction(){
 	document.querySelector('.contact button').addEventListener('click', () => {
 
 		var contactText = document.querySelector('.contact textarea').value;
+
+		if (!contactText) return wontSendEmpty();
 
 		var httpOptions = {
 			method: 'POST',
@@ -63,16 +73,20 @@ function setContactAction(){
 			switch (code){
 
 			case 500:
-				return alert('System error.');
+				return notify.serverError();
 
 			case 400:
-				return alert('Bad request');
+				return wontSendEmpty();
 
 			case 200:
-				return alert('Sababa');
+				return notify('תודה על השיתוף והמשך נעים.');
 			}
 
 		});
+
+		function wontSendEmpty(){
+			notify.error('לא ניתן לשלוח טופס ריק.');
+		}
 
 	});
 

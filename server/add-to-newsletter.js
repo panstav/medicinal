@@ -20,6 +20,8 @@ module.exports = (req, res) => {
 		// user might already be subscribed
 		if (_.get(err, 'response.body.title') === 'Member Exists'){
 			
+			console.log('\n', typeof err, 'err', err, '\n');
+			
 			// attempt resending subscription request, respond as if subscribed just now
 			return subscribeEmail({ email, reconfirm: true }, resConfirm, (err) => {
 				console.log(err);
