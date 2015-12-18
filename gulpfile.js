@@ -12,7 +12,7 @@ var webpack = require('webpack');
 
 gulp.task('sass-to-css', () => {
 
-	return gulp.src('src/index.sass')
+	return gulp.src('client/index.sass')
 		.pipe(plugins.sass())
 		.pipe(plugins.rename({ basename: `styles` }))
 		.pipe(gulp.dest('public'));
@@ -21,7 +21,7 @@ gulp.task('sass-to-css', () => {
 
 gulp.task('jade-to-html', () => {
 
-	return gulp.src('src/index.jade')
+	return gulp.src('client/index.jade')
 		.pipe(plugins.jade({ pretty: true }))
 		.pipe(gulp.dest('public'));
 
@@ -31,7 +31,7 @@ gulp.task('bundle-js', done => {
 
 	var webpackOptions = {
 
-		context: path.join(__dirname, './src'),
+		context: path.join(__dirname, './client'),
 		entry: './index.js',
 
 		output: { path: './public', filename: 'bundle.js' },
