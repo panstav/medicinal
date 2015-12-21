@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var limiter = require('express-rate-limit');
 var bodyParser = require('body-parser');
 
 // Start a new server, set it up and return it.
@@ -19,7 +20,22 @@ module.exports.init = () => {
 	server.use(bodyParser.json());
 	server.use(bodyParser.urlencoded({ extended: true }));
 
-	// api
+	//-=======================================================---
+	//------------------ API
+	//-=======================================================---
+
+	// every minute, allow maximum of 5 connections to go
+	// before sending 429 too many requests
+	server.use(limiter(
+		{
+			windowMs: 1000 * 60 * 60, // an hour
+			max: 3,
+			delayAfter: 0,
+			delayMs: 0
+		}
+	));
+
+	// setup routes
 	server.use('/api/add-to-newsletter', require('./add-to-newsletter'));
 	server.use('/api/send-contact-form', require('./send-contact-form'));
 

@@ -25,6 +25,9 @@ function contactCtrl(){
 			case 500:
 				return notify.serverError();
 
+			case 429:
+				return notify.error('יותר מדי טפסים נשלחו, נסו שוב מאוחר יותר.');
+
 			case 400:
 				return wontSendEmpty();
 
