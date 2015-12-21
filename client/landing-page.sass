@@ -1,27 +1,27 @@
 .hero
 
 	position: relative
-	height: 20em
+	height: 80vh
 	color: $main
 	text-align: center
 
-	@media (min-width: $tablet)
-		height: 80vh
+.logo
+	$break: 30em
 
-	.logo
-		position: absolute
-		top: 0
-		right: 0
-		bottom: 0
-		left: 0
+	@include centerized
 
-		max-width: 15em
-		max-height: 15em
-		margin: auto
-		padding-top: 2em
+	max-width: 75%
+	width: 15em
+	height: 12em
+
+	@media (min-height: $break)
+		height: 20em
 
 	img
-		border-radius: 100%
+		width: 50%
+
+		@media (min-height: $break)
+			width: 100%
 	
 .info
 
