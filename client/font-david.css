@@ -1,0 +1,19 @@
+@font-face {
+	font-family: 'david_clm';
+	src: url('font-david/davidclm-medium-webfont.eot');
+	src: url('font-david/davidclm-medium-webfont.eot?#iefix') format('embedded-opentype'),
+	url('font-david/davidclm-medium-webfont.woff') format('woff'),
+	url('font-david/davidclm-medium-webfont.ttf') format('truetype'),
+	url('font-david/davidclm-medium-webfont.svg#david_clmmedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body, input, button, textarea {
+	font-family : 'david_clm', serif;
+}
+
+body {
+	letter-spacing : 0.06em;
+	font-size      : 1.1em;
+}

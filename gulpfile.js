@@ -12,6 +12,9 @@ var webpack = require('webpack');
 
 gulp.task('sass-to-css', () => {
 
+	gulp.src('client/font-david/*', { base: './client' })
+		.pipe(gulp.dest('public'));
+
 	return gulp.src('client/index.sass')
 		.pipe(plugins.sass())
 		.pipe(plugins.rename({ basename: `styles` }))
