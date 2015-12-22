@@ -16,11 +16,7 @@ gulp.task('prep-public-dir', () => {
 
 	let copyPaste = [
 		'client/manifest.json',
-
-		'client/robots.txt',
-
-		'client/favicons/*',
-		'!client/favicons/*.jade'
+		'client/robots.txt'
 	];
 
 	gulp.src(copyPaste, { base: './client' })
@@ -29,13 +25,6 @@ gulp.task('prep-public-dir', () => {
 });
 
 gulp.task('sass-to-css', () => {
-
-	let copyPaste = [
-		'client/font-david/*'
-	];
-
-	gulp.src(copyPaste, { base: './client' })
-		.pipe(gulp.dest('public'));
 
 	return gulp.src('client/index.sass')
 		.pipe(plugins.sass())
