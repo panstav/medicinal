@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 
 var gulp = require('gulp');
@@ -12,7 +14,14 @@ var webpack = require('webpack');
 
 gulp.task('sass-to-css', () => {
 
-	gulp.src('client/font-david/*', { base: './client' })
+	let copyPaste = [
+		'client/favicons/*',
+		'!client/favicons/*.jade',
+
+		'client/font-david/*'
+	];
+
+	gulp.src(copyPaste, { base: './client' })
 		.pipe(gulp.dest('public'));
 
 	return gulp.src('client/index.sass')
