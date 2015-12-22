@@ -12,15 +12,26 @@ var webpack = require('webpack');
 //------------------ Build
 //-=======================================================---
 
+gulp.task('prep-public-dir', () => {
+
+	let copyPaste = [
+		'client/manifest.json',
+
+		'client/robots.txt',
+
+		'client/favicons/*',
+		'!client/favicons/*.jade'
+	];
+
+	gulp.src(copyPaste, { base: './client' })
+		.pipe(gulp.dest('public'));
+
+});
+
 gulp.task('sass-to-css', () => {
 
 	let copyPaste = [
-		'client/favicons/*',
-		'!client/favicons/*.jade',
-
-		'client/font-david/*',
-
-	  'client/manifest.json'
+		'client/font-david/*'
 	];
 
 	gulp.src(copyPaste, { base: './client' })
@@ -76,4 +87,4 @@ gulp.task('bundle-js', done => {
 //------------------ Batches
 //-=======================================================---
 
-gulp.task('build', ['sass-to-css', 'jade-to-html', 'bundle-js']);
+gulp.task('build', ['prep-public-dir', 'sass-to-css', 'jade-to-html', 'bundle-js']);
