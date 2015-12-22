@@ -18,7 +18,9 @@ gulp.task('sass-to-css', () => {
 		'client/favicons/*',
 		'!client/favicons/*.jade',
 
-		'client/font-david/*'
+		'client/font-david/*',
+
+	  'client/manifest.json'
 	];
 
 	gulp.src(copyPaste, { base: './client' })
