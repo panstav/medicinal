@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 
 var gulp = require('gulp');
@@ -7,6 +8,9 @@ var plugins = require('gulp-load-plugins')();
 var StatsPlugin = require('stats-webpack-plugin');
 
 var webpack = require('webpack');
+var moment = require('moment');
+
+var sitemap = require('./server/sitemap-generator');
 
 //-=======================================================---
 //------------------ Build
@@ -72,8 +76,32 @@ gulp.task('bundle-js', done => {
 
 });
 
+gulp.task('sitemap', done => {
+
+	fs.stat('./public/index.html', (err, stats) => {
+		var homepageLastmod;
+
+		if (err){
+			console.error(err);
+
+			homepageLastmod = moment().format('YYYY-MM-DD');
+
+		} else {
+			homepageLastmod = moment(stats.mtime).format('YYYY-MM-DD')
+		}
+
+		sitemap('public/sitemap.xml', [{
+			url: '/',
+			changefreq: 'monthly',
+			priority: 1,
+			lastmod: homepageLastmod
+		}], done);
+
+	});
+});
+
 //-=======================================================---
 //------------------ Batches
 //-=======================================================---
 
-gulp.task('build', ['prep-public-dir', 'sass-to-css', 'jade-to-html', 'bundle-js']);
+gulp.task('build', ['prep-public-dir', 'sass-to-css', 'jade-to-html', 'bundle-js', 'sitemap']);
