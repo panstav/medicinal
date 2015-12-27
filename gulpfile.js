@@ -39,8 +39,10 @@ gulp.task('sass-to-css', () => {
 
 gulp.task('jade-to-html', () => {
 
+	let locals = { production: process.env.NODE_ENV === 'production' };
+
 	return gulp.src('client/index.jade')
-		.pipe(plugins.jade({ pretty: true }))
+		.pipe(plugins.jade({ pretty: true, locals }))
 		.pipe(gulp.dest('public'));
 
 });
@@ -105,3 +107,5 @@ gulp.task('sitemap', done => {
 //-=======================================================---
 
 gulp.task('build', ['prep-public-dir', 'sass-to-css', 'jade-to-html', 'bundle-js', 'sitemap']);
+
+gulp.task('local-build', ['sass-to-css', 'jade-to-html', 'bundle-js']);
