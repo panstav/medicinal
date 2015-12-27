@@ -1,5 +1,5 @@
 module.exports = {
 
-	domain: 'http://medicinal.co.il'
+	domain: 'http://www.medicinal.co.il'
 
 };
