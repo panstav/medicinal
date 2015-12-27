@@ -31,8 +31,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "postinstall": "npm run compile && npm run compile",
-    "compile": "node_modules/.bin/gulp build",
+    "postinstall": "./node_modules/.bin/gulp build",
+    "compile": "node_modules/.bin/gulp local-build",
+    "local": "LOCAL=true node index.js",
     "start": "node index.js"
   },
   "author": "",
