@@ -5,7 +5,7 @@ var md5 = require('md5');
 
 var Mailchimp = require('mailchimp-lite');
 
-var isValidEmail = require('../is-valid-email.js');
+var isValidEmail = require('../common/is-valid-email.js');
 
 module.exports = (req, res) => {
 

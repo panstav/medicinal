@@ -1,11 +1,11 @@
-button, button:focus
-	border-color: transparent
-
-button
+@mixin button
 	cursor: pointer
 	border-radius: 3px
 	background-color: transparent
+
 	border-color: transparent
+	&:focus
+		border-color: transparent
 
 	&.bright
 		border-color: $main
@@ -24,3 +24,6 @@ button
 			background-color: $main-shaded
 			border-color: transparent
 			color: $main
+
+button
+	@include button
