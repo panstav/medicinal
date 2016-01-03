@@ -4,6 +4,8 @@ var express = require('express');
 var limiter = require('express-rate-limit');
 var bodyParser = require('body-parser');
 
+const maxAgeCache = process.env.NODE_ENV !== 'production' ? 0 : 1000*60*60*24*7;
+
 // Start a new server, set it up and return it.
 module.exports.init = () => {
 
@@ -13,8 +15,8 @@ module.exports.init = () => {
 	// register main route
 	server.get('/', mainRoute);
 
-	// Serve static files
-	server.use(express.static('public'));
+	// Serve static files, cache for a week
+	server.use(express.static('public', { maxAge: maxAgeCache }));
 
 	// set body json at req.body
 	server.use(bodyParser.json());
@@ -47,7 +49,7 @@ module.exports.init = () => {
 };
 
 function mainRoute(req, res){
-	res.sendFile('index.html', { root: 'public' });
+	res.sendFile('index.html', { root: 'public', maxAge: maxAgeCache });
 }
 
 function fourOfour(req, res){
