@@ -3,6 +3,8 @@
 var fs = require('fs');
 var path = require('path');
 
+var common = require('./common');
+
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var StatsPlugin = require('stats-webpack-plugin');
@@ -39,7 +41,11 @@ gulp.task('sass-to-css', () => {
 
 gulp.task('jade-to-html', () => {
 
-	let locals = { production: process.env.NODE_ENV === 'production' };
+	let locals = {
+		production: process.env.NODE_ENV === 'production',
+
+		fullTitle: common.fullTitle
+	};
 
 	return gulp.src('client/index.jade')
 		.pipe(plugins.jade({ pretty: true, locals }))
@@ -49,7 +55,11 @@ gulp.task('jade-to-html', () => {
 
 gulp.task('bundle-js', done => {
 
-	var webpackOptions = {
+	let webpackLocals = new webpack.DefinePlugin({
+		'process.env.LOCAL': !!process.env.LOCAL
+	});
+
+	let webpackOptions = {
 
 		context: path.join(__dirname, './client'),
 		entry: './index.js',
@@ -57,7 +67,8 @@ gulp.task('bundle-js', done => {
 		output: { path: './public', filename: 'bundle.js' },
 
 		plugins: [
-			new StatsPlugin('../webpack-stats.json', {})
+			new StatsPlugin('../webpack-stats.json', {}),
+			webpackLocals
 		],
 
 		module: {
