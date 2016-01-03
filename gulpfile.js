@@ -33,8 +33,8 @@ gulp.task('prep-public-dir', () => {
 gulp.task('sass-to-css', () => {
 
 	return gulp.src('client/index.sass')
-		.pipe(plugins.sass())
-		.pipe(plugins.rename({ basename: `styles` }))
+		.pipe(plugins.sass({ outputStyle: process.env.NODE_ENV !== 'production' ? 'expanded' : 'compressed' }))
+		.pipe(plugins.rename({ basename: 'styles' }))
 		.pipe(gulp.dest('public'));
 
 });
@@ -48,16 +48,12 @@ gulp.task('jade-to-html', () => {
 	};
 
 	return gulp.src('client/index.jade')
-		.pipe(plugins.jade({ pretty: true, locals }))
+		.pipe(plugins.jade({ pretty: process.env.NODE_ENV !== 'production', locals }))
 		.pipe(gulp.dest('public'));
 
 });
 
 gulp.task('bundle-js', done => {
-
-	let webpackLocals = new webpack.DefinePlugin({
-		'process.env.LOCAL': !!process.env.LOCAL
-	});
 
 	let webpackOptions = {
 
@@ -67,8 +63,16 @@ gulp.task('bundle-js', done => {
 		output: { path: './public', filename: 'bundle.js' },
 
 		plugins: [
-			new StatsPlugin('../webpack-stats.json', {}),
-			webpackLocals
+
+			new webpack.DefinePlugin({
+				'process.env.LOCAL': !!process.env.LOCAL
+			}),
+
+			process.env.NODE_ENV !== 'production' ? ()=>{} : new webpack.optimize.UglifyJsPlugin({
+				compress: { warnings: false }
+			}),
+
+			new StatsPlugin('../webpack-stats.json', {})
 		],
 
 		module: {
